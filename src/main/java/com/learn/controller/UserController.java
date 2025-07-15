@@ -4,9 +4,12 @@ import com.learn.controller.request.UserCreationRequest;
 import com.learn.controller.request.UserPasswordRequest;
 import com.learn.controller.request.UserUpdateRequest;
 import com.learn.controller.response.UserResponse;
+import com.learn.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -14,7 +17,10 @@ import java.util.*;
 @RestController
 @RequestMapping("/user")
 @Tag(name = "User Controller")
+@NoArgsConstructor
 public class UserController {
+
+    private UserService userService;
 
     @Operation(summary = "Get user list", description = "API retrieve user from db ")
     @GetMapping("/list")
@@ -77,14 +83,14 @@ public class UserController {
 
     @Operation(summary = "Creat User", description = "API add new user to db ")
     @PostMapping("/add")
-    public Map<String, Object> createUser(UserCreationRequest request) {
+    public ResponseEntity<Object> createUser(UserCreationRequest request) {
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("status", HttpStatus.CREATED.value());//201
         result.put("message", "User created successfully");
-        result.put("data", 3); //return an userId
+        result.put("data", userService.save(request));
 
-        return result;
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Update User", description = "API update an user ")
