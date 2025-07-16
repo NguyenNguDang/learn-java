@@ -1,5 +1,6 @@
 package com.learn.model;
 
+import com.learn.common.Gender;
 import com.learn.common.UserStatus;
 import com.learn.common.UserType;
 import com.learn.controller.request.AddressRequest;
@@ -38,11 +39,11 @@ public class UserEntity {
     @Column(name="username", unique = true, nullable = false, length = 20)
     private String username;
 
-    @Column(name ="password", length = 50)
+    @Column(name ="password", length = 300)
     private String password;
 
     @Column(name ="gender", length = 50)
-    private String gender;
+    private Gender gender;
 
     @Column(name ="date_of_birth")
     @Temporal(TemporalType.DATE)

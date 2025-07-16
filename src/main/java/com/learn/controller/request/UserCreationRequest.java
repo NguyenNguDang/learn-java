@@ -1,20 +1,22 @@
 package com.learn.controller.request;
 
+import com.learn.common.Gender;
 import com.learn.common.UserType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Getter
-@Setter
+@ToString
 public class UserCreationRequest implements Serializable { //request = payload
     private String firstName;
     private String lastName;
     private String username;
-    private String gender;
+    private Gender gender;
     private Date birthday;
     private String email;
     private String phone;
