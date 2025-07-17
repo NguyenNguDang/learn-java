@@ -3,11 +3,11 @@ package com.learn.controller;
 import com.learn.controller.request.UserCreationRequest;
 import com.learn.controller.request.UserPasswordRequest;
 import com.learn.controller.request.UserUpdateRequest;
+import com.learn.controller.response.UserPageResponse;
 import com.learn.controller.response.UserResponse;
 import com.learn.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,65 +29,38 @@ public class UserController {
     @Operation(summary = "Get user list", description = "API retrieve user from db ")
     @GetMapping("/list")
     public Map<String, Object> getList(@RequestParam(required = false) String keyword,
+                                      @RequestParam(required = false) String sort,
                                       @RequestParam(defaultValue = "0") int page,//number of page
                                       @RequestParam(defaultValue = "20") int size) { //Return how many record
-        UserResponse userResponse1 = new UserResponse();
-        userResponse1.setId(1L);
-        userResponse1.setFirstName("John");
-        userResponse1.setLastName("Doe");
-        userResponse1.setGender("Male");
-        userResponse1.setEmail("dddd00688@gmail.com");
-        userResponse1.setBirthday(new Date());
-        userResponse1.setUsername("admin");
-        userResponse1.setPhone("123456789");
+        log.info("Get user list");
 
-        UserResponse userResponse2 = new UserResponse();
-        userResponse2.setId(2L);
-        userResponse2.setFirstName("Leo");
-        userResponse2.setLastName("Messi");
-        userResponse2.setGender("Female");
-        userResponse2.setEmail("m10@gmail.com");
-        userResponse2.setBirthday(new Date());
-        userResponse2.setUsername("user");
-        userResponse2.setPhone("123456798");
-
-        //List.of() to creat an immutable list
-        List<UserResponse> userList = List.of(userResponse1, userResponse2);
+        UserPageResponse userList = userService.findAll(keyword, sort , page , size );
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("status", HttpStatus.OK.value());//200
         result.put("message", "user list");
-        result.put("data", userList);
-
-
+        result.put("data",userList );
         return result;
     }
 
     @Operation(summary = "Get user detail", description = "API retrieve user detail by ID ")
     @GetMapping("/{userId}")
     public Map<String, Object> getUserDetail(@PathVariable Long userId) {
-        UserResponse userDetail = new UserResponse();
-        userDetail.setId(1L);
-        userDetail.setFirstName("John");
-        userDetail.setLastName("Doe");
-        userDetail.setGender("Male");
-        userDetail.setEmail("dddd00688@gmail.com");
-        userDetail.setBirthday(new Date());
-        userDetail.setUsername("admin");
-        userDetail.setPhone("123456789");
+        log.info("Get user detail by ID {}", userId);
 
+        UserResponse userDetail = userService.findById(userId);
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("status", HttpStatus.OK.value());//200
-        result.put("message", "user ");
+        result.put("message", "user detail");
         result.put("data", userDetail);
-
         return result;
     }
 
     @Operation(summary = "Creat User", description = "API add new user to db ")
     @PostMapping("/add")
     public ResponseEntity<Object> createUser(@RequestBody UserCreationRequest request) {
+        log.info("Create user {}", request);
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("status", HttpStatus.CREATED.value());//201

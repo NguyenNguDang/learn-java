@@ -1,5 +1,6 @@
 package com.learn.controller;
 
+import com.learn.common.Gender;
 import com.learn.controller.request.UserCreationRequest;
 import com.learn.controller.request.UserPasswordRequest;
 import com.learn.controller.request.UserUpdateRequest;
@@ -25,7 +26,7 @@ public class MockupUserController {
         userResponse1.setId(1L);
         userResponse1.setFirstName("John");
         userResponse1.setLastName("Doe");
-        userResponse1.setGender("Male");
+        userResponse1.setGender(Gender.MALE);
         userResponse1.setEmail("dddd00688@gmail.com");
         userResponse1.setBirthday(new Date());
         userResponse1.setUsername("admin");
@@ -35,7 +36,7 @@ public class MockupUserController {
         userResponse2.setId(2L);
         userResponse2.setFirstName("Leo");
         userResponse2.setLastName("Messi");
-        userResponse2.setGender("Female");
+        userResponse2.setGender(Gender.MALE);
         userResponse2.setEmail("m10@gmail.com");
         userResponse2.setBirthday(new Date());
         userResponse2.setUsername("user");
@@ -60,7 +61,7 @@ public class MockupUserController {
         userDetail.setId(1L);
         userDetail.setFirstName("John");
         userDetail.setLastName("Doe");
-        userDetail.setGender("Male");
+        userDetail.setGender(Gender.MALE);
         userDetail.setEmail("dddd00688@gmail.com");
         userDetail.setBirthday(new Date());
         userDetail.setUsername("admin");
