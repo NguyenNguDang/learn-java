@@ -13,7 +13,9 @@ spring:
     show-sql: false
     hibernate:
       ddl-auto: update
-
+  sendgrid:
+    api-key: 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
+    from-email: ddddd00688@gmail.com
 # application-dev,yml
 springdoc:
   api-docs:
